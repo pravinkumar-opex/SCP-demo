@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1.0"
+    />
+    <title>Starter Template - Materialize</title>
+
+    <!-- CSS  -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      href="css/materialize.css"
+      type="text/css"
+      rel="stylesheet"
+      media="screen,projection"
+    />
+    <link
+      href="css/style.css"
+      type="text/css"
+      rel="stylesheet"
+      media="screen,projection"
+    />
+  </head>
+  <body>
+    <nav class="indigo" role="navigation">
+      <div class="nav-wrapper container">
+        <a id="logo-container" href="#" class="brand-logo">Random Comments</a>
+        <a href="#" data-target="nav-mobile" class="sidenav-trigger"
+          ><i class="material-icons">menu</i></a
+        >
+      </div>
+    </nav>
+    <div class="section no-pad-bot" id="index-banner">
+      <div class="container">
+        <div class="row">
+          <form class="col s12">
+            <div class="row valign-wrapper">
+              <div class="input-field col s10">
+                <textarea
+                  id="textarea1"
+                  class="materialize-textarea"
+                ></textarea>
+                <label for="textarea1">Add your comments</label>
+              </div>
+              <div class="col s2">
+                <button
+                  class="btn waves-effect waves-light"
+                  type="button"
+                  onclick="saveComment()"
+                >
+                  Submit
+                  <i class="material-icons right">send</i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="row">
+          <ul id="collection" class="collection">
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!--  Scripts-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="js/materialize.js"></script>
+    <script src="js/init.js"></script>
+    <script>
+      let comments = [];
+      $(document).ready(() => {
+        commentsStore = localStorage.getItem("comments");
+        if (commentsStore) {
+          comments = JSON.parse(commentsStore);
+          generateList();
+        }
+      });
+
+      function generateList() {
+        if (comments.length) {
+          comments.forEach(value => {
+            generateListItem(value)
+          });
+        }
+      }
+
+      function generateListItem({ name, comment }) {
+        let listItem = `
+          <li class="collection-item avatar">
+            <i class="material-icons circle green">comment</i>
+            <span class="title">&nbsp;${name}</span>
+            <p>&nbsp;</p>
+          </li>
+        `;
+
+        $("#collection").append(listItem)
+        if(comment.includes("<script>")){
+          var script = document.createElement("script");
+          script.type = "text/javascript";
+          comment = comment.replace("<script>", "");
+          comment = comment.replace("<", "");
+          comment = comment.replace("/script>", "");
+          script.innerHTML = comment;
+          $('#collection > .collection-item:last-child > p').append(script);
+        } else {
+          $('#collection > .collection-item:last-child > p').append(comment);
+        }
+        
+      }
+
+      function saveComment(e) {
+        let message = $("textarea#textarea1").val();
+        if (message) {
+          let comment = {
+              name: "user" + Math.ceil(Math.random() * 100),
+              comment: message
+            }
+          comments = [
+            ...comments,
+            comment
+          ];
+          localStorage.setItem("comments", JSON.stringify(comments));
+          generateListItem(comment);
+          $("textarea#textarea1").val('')
+        }
+      }
+    </script>
+  </body>
+</html>

